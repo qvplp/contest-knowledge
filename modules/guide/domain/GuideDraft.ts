@@ -17,3 +17,5 @@ export interface GuideDraftRepository {
   list(): GuideDraft[];
 }
 
+
+

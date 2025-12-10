@@ -1,44 +1,32 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import Link from 'next/link';
 import ResponsiveMediaCard from '@/components/ResponsiveMediaCard';
 import { Trophy, Calendar, Users } from 'lucide-react';
-
-const contests = [
-  {
-    id: 1,
-    title: '🎃 ハロウィン創作カップ 2025',
-    description: '今年のハロウィンをテーマにした作品を募集中！',
-    image: '/images/contests/halloween2025.jpg',
-    deadline: '2025-10-31',
-    participants: 248,
-    prize: '賞金総額 ¥500,000',
-    link: '/contest/halloween2025',
-  },
-  {
-    id: 2,
-    title: '🎄 クリスマスコンテスト 2025',
-    description: 'クリスマスをテーマにした作品を募集！',
-    image: '/images/contests/winter2025.jpg',
-    deadline: '2025-12-25',
-    participants: 156,
-    prize: '賞金総額 ¥300,000',
-    link: '/contest/christmas2025',
-  },
-  {
-    id: 3,
-    title: '🌺 サマーコンテスト 2024',
-    description: '夏の思い出をテーマにした作品を募集！',
-    image: '/images/contests/summer2024.jpg',
-    deadline: '2024-08-31',
-    participants: 342,
-    prize: '賞金総額 ¥400,000',
-    link: '/contest/summer2024',
-  },
-];
+import { StaticContestQueryService } from '@/modules/contest/infra/StaticContestQueryService';
 
 const ContestSection: React.FC = () => {
+  const contestQuery = useMemo(() => new StaticContestQueryService(), []);
+  const activeContests = contestQuery.getActive();
+  
+  // 開催中または近日開催のコンテストを最大3件表示
+  const contests = useMemo(() => {
+    const allContests = contestQuery.getAll();
+    return allContests
+      .filter((c) => c.status === 'active' || c.status === 'upcoming')
+      .slice(0, 3)
+      .map((contest) => ({
+        id: contest.id,
+        title: contest.title,
+        description: contest.description,
+        image: contest.thumbnail,
+        deadline: contest.endDate,
+        participants: contest.submissions,
+        prize: contest.prize,
+        link: `/contest/${contest.slug}`,
+      }));
+  }, [contestQuery]);
   return (
     <section className="mb-8 sm:mb-12 lg:mb-16">
       {/* セクションヘッダー */}

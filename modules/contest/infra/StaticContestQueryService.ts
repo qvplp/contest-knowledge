@@ -66,6 +66,32 @@ const CONTESTS: ContestInfo[] = [
     status: 'ended',
     isActive: false,
   },
+  {
+    id: '4',
+    title: 'KURIEMI AI Short Film Contest',
+    slug: 'kuriemi2026',
+    displayName: 'KURIEMI AI Short Film Contest',
+    description: 'AIがひらく、実在のヒロインとの新しい創作。',
+    thumbnail: '/images/contests/kuriemi2026.jpg',
+    prize: '10,000クレジット（仮）',
+    submissions: 0,
+    votes: 0,
+    startDate: '2026-01-05',
+    endDate: '2026-01-25',
+    reviewStartDate: '2026-01-26',
+    reviewEndDate: '2026-02-05',
+    resultAnnouncementDate: '2026-02-10',
+    status: 'upcoming',
+    isActive: true,
+    submissionSettings: {
+      allowedFormats: ['all'],
+      maxVideoFiles: 3,
+      maxVideoTotalSizeMB: 10,
+      allowedExternalLinkTypes: ['youtube'],
+      maxExternalLinks: 10,
+      maxSelectedWorks: 1,
+    },
+  },
 ];
 
 export class StaticContestQueryService implements ContestQueryService {
@@ -87,4 +113,5 @@ export class StaticContestQueryService implements ContestQueryService {
 }
 
 export const CONTESTS_STATIC_DATA = CONTESTS;
+
 

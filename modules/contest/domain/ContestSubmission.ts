@@ -19,3 +19,5 @@ export interface ContestSubmissionRepository {
   toggleVote(slug: string, submissionId: number): ContestSubmission[];
 }
 
+
+

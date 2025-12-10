@@ -21,3 +21,5 @@ export type AIModel =
   | 'Midjourney v7'
   | 'DALL-E 4';
 
+
+

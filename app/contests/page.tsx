@@ -1,69 +1,18 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Trophy, Users, Heart, Calendar, Clock, Search } from 'lucide-react';
-
-interface Contest {
-  id: string;
-  title: string;
-  slug: string;
-  description: string;
-  thumbnail: string;
-  prize: string;
-  submissions: number;
-  votes: number;
-  startDate: string;
-  endDate: string;
-  status: 'active' | 'upcoming' | 'ended';
-}
+import { StaticContestQueryService } from '@/modules/contest/infra/StaticContestQueryService';
+import type { ContestInfo } from '@/modules/contest/domain/Contest';
 
 export default function ContestsPage() {
   const [statusFilter, setStatusFilter] = useState<'all' | 'active' | 'upcoming' | 'ended'>('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const contestQuery = useMemo(() => new StaticContestQueryService(), []);
 
-  const contests: Contest[] = [
-    {
-      id: '1',
-      title: 'ハロウィン創作カップ2025',
-      slug: 'halloween2025',
-      description: 'AIの力で最高のハロウィン作品を創造しよう！総額50万円の賞金をかけた創作コンテスト',
-      thumbnail: '/images/contests/halloween2025.jpg',
-      prize: '¥500,000',
-      submissions: 1234,
-      votes: 12345,
-      startDate: '2025-10-01',
-      endDate: '2025-11-01',
-      status: 'active',
-    },
-    {
-      id: '2',
-      title: 'ウィンターファンタジーコンテスト',
-      slug: 'winter2025',
-      description: '冬をテーマにした幻想的な作品を募集します',
-      thumbnail: '/images/contests/winter2025.jpg',
-      prize: '¥300,000',
-      submissions: 0,
-      votes: 0,
-      startDate: '2025-12-01',
-      endDate: '2026-01-15',
-      status: 'upcoming',
-    },
-    {
-      id: '3',
-      title: 'サマーポートレートコンテスト',
-      slug: 'summer2024',
-      description: '夏の思い出を彩るポートレート作品コンテスト',
-      thumbnail: '/images/contests/summer2024.jpg',
-      prize: '¥400,000',
-      submissions: 2345,
-      votes: 23456,
-      startDate: '2024-07-01',
-      endDate: '2024-08-31',
-      status: 'ended',
-    },
-  ];
+  const contests: ContestInfo[] = contestQuery.getAll();
 
   // フィルター処理
   const filteredContests = contests.filter((contest) => {
@@ -75,7 +24,7 @@ export default function ContestsPage() {
     return statusMatch && searchMatch;
   });
 
-  const getStatusBadge = (status: Contest['status']) => {
+  const getStatusBadge = (status: ContestInfo['status']) => {
     switch (status) {
       case 'active':
         return (

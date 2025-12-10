@@ -7,3 +7,5 @@ export interface ContestQueryService {
   getScheduleStatus(contest: ContestInfo): ContestScheduleStatus;
 }
 
+
+
