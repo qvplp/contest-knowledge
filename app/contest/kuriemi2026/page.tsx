@@ -151,7 +151,7 @@ export default function KuriemiContestPage() {
   return (
     <div className="bg-gray-950 min-h-screen">
       {/* ヒーローセクション - バナー画像のみ */}
-      <section className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
+      <section className="relative h-[280px] sm:h-[380px] md:h-[480px] lg:h-[600px] overflow-hidden">
         {/* バナー画像 - フル表示 */}
         <div className="absolute inset-0">
           <Image
@@ -173,16 +173,16 @@ export default function KuriemiContestPage() {
               🎬 KURIEMI AI Short Film Contest 🎬
             </div>
             
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-purple-400 via-pink-500 to-orange-500 bg-clip-text text-transparent">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 sm:mb-6 bg-gradient-to-r from-purple-400 via-pink-500 to-orange-500 bg-clip-text text-transparent">
               KURIEMI AI Short Film Contest
             </h1>
             
-            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-200 mb-6 sm:mb-8 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-6 sm:mb-8 max-w-3xl mx-auto">
               AIがひらく、実在のヒロインとの新しい創作。
             </p>
 
             {/* 指定タグ */}
-            <div className="flex flex-wrap gap-2 sm:gap-3 justify-center mb-6 sm:mb-8">
+            <div className="flex flex-wrap gap-2 sm:gap-3 justify-center mb-6 sm:mb-8 px-2">
               {tags.map((tag, index) => (
                 <span
                   key={index}
@@ -194,7 +194,7 @@ export default function KuriemiContestPage() {
             </div>
 
             {/* アクションボタン */}
-            <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center mb-8 sm:mb-12">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center mb-8 sm:mb-12 px-2">
               {isLoggedIn ? (
                 <>
                   <Link
@@ -224,20 +224,20 @@ export default function KuriemiContestPage() {
             </div>
 
             {/* 統計情報 */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-4xl mx-auto">
-              <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-gray-700 text-center">
-                <Trophy className="text-yellow-400 mb-2 mx-auto w-6 h-6 sm:w-8 sm:h-8" />
-                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-1">10,000</div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-5 lg:gap-8 max-w-4xl mx-auto px-2">
+              <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 sm:p-5 lg:p-6 border border-gray-700 text-center">
+                <Trophy className="text-yellow-400 mb-2 mx-auto w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8" />
+                <div className="text-2xl sm:text-3xl font-bold mb-1">10,000</div>
                 <div className="text-sm sm:text-base text-gray-300">クレジット（仮）</div>
               </div>
-              <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-gray-700 text-center">
-                <Users className="text-purple-400 mb-2 mx-auto w-6 h-6 sm:w-8 sm:h-8" />
-                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-1">0</div>
+              <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 sm:p-5 lg:p-6 border border-gray-700 text-center">
+                <Users className="text-purple-400 mb-2 mx-auto w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8" />
+                <div className="text-2xl sm:text-3xl font-bold mb-1">0</div>
                 <div className="text-sm sm:text-base text-gray-300">応募作品数</div>
               </div>
-              <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-gray-700 text-center">
-                <Heart className="text-pink-400 mb-2 mx-auto w-6 h-6 sm:w-8 sm:h-8" />
-                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-1">0</div>
+              <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 sm:p-5 lg:p-6 border border-gray-700 text-center">
+                <Heart className="text-pink-400 mb-2 mx-auto w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8" />
+                <div className="text-2xl sm:text-3xl font-bold mb-1">0</div>
                 <div className="text-sm sm:text-base text-gray-300">総投票数</div>
               </div>
             </div>
