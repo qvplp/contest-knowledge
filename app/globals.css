@@ -55,3 +55,26 @@ body {
 .responsive-image-container:hover .responsive-image {
   transform: scale(1.05);
 }
+
+/* レスポンシブ修正 - 横スクロール防止 */
+html {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
+}
+
+/* すべての要素がビューポートを超えないようにする */
+*, *::before, *::after {
+  max-width: 100vw;
+}
+
+/* 画像の横幅制限 */
+img {
+  max-width: 100%;
+  height: auto;
+}

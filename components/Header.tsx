@@ -15,6 +15,10 @@ export default function Header({ onMenuClick, isMobileMenuOpen = false }: Header
   const [searchQuery, setSearchQuery] = useState('');
   const unreadNotifications = 3;
 
+  const baseHeaderClass =
+    'fixed top-0 right-0 left-0 h-16 bg-gray-900/95 backdrop-blur border-b border-gray-800 z-50 shadow-md';
+  const headerClassName = isLoggedIn ? `${baseHeaderClass} lg:left-64` : baseHeaderClass;
+
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
@@ -31,7 +35,7 @@ export default function Header({ onMenuClick, isMobileMenuOpen = false }: Header
 
   return (
     <>
-      <header className="fixed top-0 right-0 left-0 lg:left-64 h-16 bg-gray-900 border-b border-gray-800 z-30">
+      <header className={headerClassName}>
         <div className="h-full px-4 sm:px-6 flex items-center justify-between gap-4">
           {/* 左側: ハンバーガーボタン（モバイル） + 検索バー */}
           <div className="flex items-center gap-3 flex-1">

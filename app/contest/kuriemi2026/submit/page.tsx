@@ -260,8 +260,8 @@ export default function KuriemiSubmitPage() {
   }
 
   return (
-    <div className="bg-gray-950 min-h-screen py-8">
-      <div className="container mx-auto px-4 sm:px-5 lg:px-6 max-w-4xl">
+    <div className="bg-gray-950 min-h-screen pt-16 sm:pt-20 pb-8 overflow-x-hidden">
+      <div className="container mx-auto px-4 sm:px-5 lg:px-6 max-w-4xl w-full">
         <div className="mb-6 sm:mb-8">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2">作品を応募する</h1>
           <p className="text-sm sm:text-base text-gray-400">
