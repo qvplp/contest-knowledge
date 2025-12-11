@@ -260,10 +260,10 @@ export default function KuriemiSubmitPage() {
   }
 
   return (
-    <div className="bg-gray-950 min-h-screen py-8">
-      <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+    <div className="bg-gray-950 min-h-screen pt-16 sm:pt-20 pb-8 overflow-x-hidden">
+      <div className="container mx-auto px-4 sm:px-5 lg:px-6 max-w-4xl w-full">
         <div className="mb-6 sm:mb-8">
-          <h1 className="text-3xl sm:text-4xl font-bold mb-2">作品を応募する</h1>
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2">作品を応募する</h1>
           <p className="text-sm sm:text-base text-gray-400">
             KURIEMI AI Short Film Contestに作品を応募しましょう！
           </p>
@@ -286,7 +286,7 @@ export default function KuriemiSubmitPage() {
           </div>
         </div>
 
-        <div className="bg-gray-800/50 rounded-xl p-6 sm:p-8 border border-gray-700 space-y-6">
+        <div className="bg-gray-800/50 rounded-xl p-5 sm:p-7 lg:p-8 border border-gray-700 space-y-6">
           {/* 作品選択セクション */}
           <div>
             <label className="block font-semibold mb-3 text-base sm:text-lg">
@@ -325,7 +325,7 @@ export default function KuriemiSubmitPage() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 max-h-96 overflow-y-auto p-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 max-h-80 sm:max-h-96 overflow-y-auto p-2">
                   {availableWorks.map((work) => {
                     const isSelected = formData.selectedWorkIds.includes(work.id);
                     const isMaxReached = formData.selectedWorkIds.length >= submissionSettings.maxSelectedWorks;
