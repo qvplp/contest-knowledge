@@ -151,7 +151,7 @@ export default function GuideDetailPage() {
   };
 
   const handleShare = async () => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined' || !window.location) return;
     
     try {
       await navigator.share({
@@ -159,8 +159,10 @@ export default function GuideDetailPage() {
         url: window.location.href,
       });
     } catch {
-      navigator.clipboard.writeText(window.location.href);
-      alert('URLをコピーしました');
+      if (window.location && window.location.href) {
+        navigator.clipboard.writeText(window.location.href);
+        alert('URLをコピーしました');
+      }
     }
   };
 

@@ -175,7 +175,7 @@ export default function WorkSubmitModal({
       return trimmed;
     }
     try {
-      if (typeof window === 'undefined') {
+      if (typeof window === 'undefined' || !window.location) {
         // SSR環境では相対URLを処理できないため、絶対URLのみ処理
         if (!trimmed.startsWith('http')) {
           return null;
@@ -183,7 +183,7 @@ export default function WorkSubmitModal({
       }
       const url = trimmed.startsWith('http')
         ? new URL(trimmed)
-        : new URL(trimmed, window.location.origin);
+        : new URL(trimmed, typeof window !== 'undefined' && window.location ? window.location.origin : 'https://example.com');
       const segments = url.pathname.split('/').filter(Boolean);
       const guideIndex = segments.indexOf('guides');
       if (guideIndex >= 0 && segments[guideIndex + 1]) {

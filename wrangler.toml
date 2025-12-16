@@ -1,0 +1,8 @@
+name = "animehub-contest"
+compatibility_date = "2025-12-15"
+compatibility_flags = ["nodejs_compat"]
+
+# Cloudflare Pages向けの設定
+# @cloudflare/next-on-pages が生成する出力ディレクトリ
+pages_build_output_dir = ".vercel/output/static"
+

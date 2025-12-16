@@ -10,3 +10,6 @@ export const viewport: Viewport = {
 export default function HalloweenContestLayout({ children }: { children: ReactNode }) {
   return <>{children}</>;
 }
+
+
+
