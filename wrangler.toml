@@ -2,7 +2,16 @@ name = "animehub-contest"
 compatibility_date = "2025-12-15"
 compatibility_flags = ["nodejs_compat"]
 
-# Cloudflare Pages向けの設定
-# @cloudflare/next-on-pages が生成する出力ディレクトリ
-pages_build_output_dir = ".vercel/output/static"
+# Cloudflare Workers向けの設定
+# @cloudflare/next-on-pages が生成する出力を使用
+# ビルド後、.vercel/output ディレクトリに以下が生成されます:
+# - .vercel/output/static: 静的アセット
+# - .vercel/output/_worker.js: Workerエントリーポイント（存在する場合）
+
+# Workersとしてデプロイする場合、assetsディレクトリを指定
+# または、mainエントリーポイントを指定（_worker.jsが存在する場合）
+assets = { directory = ".vercel/output/static" }
+
+# 注意: @cloudflare/next-on-pagesは主にCloudflare Pages向けです
+# Workersとしてデプロイする場合は、.vercel/output/_worker.jsが存在するか確認してください
 

@@ -169,21 +169,40 @@ export default function WorkSubmitModal({
   };
 
   const extractGuideIdFromUrl = (value: string): string | null => {
+    // SSR環境では実行しない
+    if (typeof window === 'undefined' || !window.location) {
+      // SSR環境では相対URLを処理できないため、絶対URLのみ処理
+      const trimmed = value.trim();
+      if (!trimmed) return null;
+      if (!trimmed.includes('/')) {
+        return trimmed;
+      }
+      if (!trimmed.startsWith('http')) {
+        return null;
+      }
+      try {
+        const url = new URL(trimmed);
+        const segments = url.pathname.split('/').filter(Boolean);
+        const guideIndex = segments.indexOf('guides');
+        if (guideIndex >= 0 && segments[guideIndex + 1]) {
+          return segments[guideIndex + 1];
+        }
+        return null;
+      } catch {
+        return null;
+      }
+    }
+    
+    // クライアントサイドでのみ実行
     const trimmed = value.trim();
     if (!trimmed) return null;
     if (!trimmed.includes('/')) {
       return trimmed;
     }
     try {
-      if (typeof window === 'undefined' || !window.location) {
-        // SSR環境では相対URLを処理できないため、絶対URLのみ処理
-        if (!trimmed.startsWith('http')) {
-          return null;
-        }
-      }
       const url = trimmed.startsWith('http')
         ? new URL(trimmed)
-        : new URL(trimmed, typeof window !== 'undefined' && window.location ? window.location.origin : 'https://example.com');
+        : new URL(trimmed, window.location.origin);
       const segments = url.pathname.split('/').filter(Boolean);
       const guideIndex = segments.indexOf('guides');
       if (guideIndex >= 0 && segments[guideIndex + 1]) {
