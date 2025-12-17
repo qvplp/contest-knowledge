@@ -1,4 +1,4 @@
-name = "animehub-contest"
+name = "contest-knowledge2"
 compatibility_date = "2025-12-15"
 compatibility_flags = ["nodejs_compat"]
 
@@ -7,16 +7,16 @@ compatibility_flags = ["nodejs_compat"]
 # @cloudflare/next-on-pages が生成する出力を使用
 # ビルド後、.vercel/output ディレクトリに以下が生成されます:
 # - .vercel/output/static: 静的アセット
-# - .vercel/output/_worker.js: Workerエントリーポイント（存在する場合）
-
-# Workersとしてデプロイする場合、_worker.jsが存在する場合はmainを指定
-# 存在しない場合は、assetsディレクトリのみを指定
-# ビルド後に.vercel/output/_worker.jsが存在するか確認し、適切な設定を選択してください
+# - .vercel/output/static/_worker.js/index.js: Workerエントリーポイント
 
 # _worker.jsが存在する場合（build:cloudflare実行後）
 # .vercel/output/static/_worker.js/index.js が生成されるため、以下の設定を使用
 main = ".vercel/output/static/_worker.js/index.js"
-assets = { directory = ".vercel/output/static" }
+assets = { 
+  directory = ".vercel/output/static",
+  # _worker.jsディレクトリをアセットから除外
+  ignore = ["_worker.js/**"]
+}
 
 # 注意: @cloudflare/next-on-pagesは主にCloudflare Pages向けです
 # Workersとしてデプロイする場合は、.vercel/output/_worker.jsが存在するか確認してください
