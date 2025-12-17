@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeEvent, useEffect, useMemo, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { X, Upload, Eye, Shield, Link2, FileVideo, Youtube } from 'lucide-react';
 import { useWorks } from '@/contexts/WorksContext';
@@ -168,12 +168,12 @@ export default function WorkSubmitModal({
     }));
   };
 
-  const extractGuideIdFromUrl = (value: string): string | null => {
-    // SSR環境では実行しない
-    if (typeof window === 'undefined' || !window.location) {
-      // SSR環境では相対URLを処理できないため、絶対URLのみ処理
+  const extractGuideIdFromUrl = useCallback((value: string): string | null => {
+    // SSR環境では早期リターン
+    if (typeof window === 'undefined') {
       const trimmed = value.trim();
       if (!trimmed) return null;
+      // SSR環境では相対URLを処理できないため、絶対URLのみ処理
       if (!trimmed.includes('/')) {
         return trimmed;
       }
@@ -199,10 +199,32 @@ export default function WorkSubmitModal({
     if (!trimmed.includes('/')) {
       return trimmed;
     }
+    
+    // window.locationが存在することを確認
+    if (!window.location) {
+      // window.locationが存在しない場合、絶対URLのみ処理
+      if (!trimmed.startsWith('http')) {
+        return null;
+      }
+      try {
+        const url = new URL(trimmed);
+        const segments = url.pathname.split('/').filter(Boolean);
+        const guideIndex = segments.indexOf('guides');
+        if (guideIndex >= 0 && segments[guideIndex + 1]) {
+          return segments[guideIndex + 1];
+        }
+        return null;
+      } catch {
+        return null;
+      }
+    }
+    
     try {
+      // window.locationが存在することを確認済み
+      const origin = window.location.origin;
       const url = trimmed.startsWith('http')
         ? new URL(trimmed)
-        : new URL(trimmed, window.location.origin);
+        : new URL(trimmed, origin);
       const segments = url.pathname.split('/').filter(Boolean);
       const guideIndex = segments.indexOf('guides');
       if (guideIndex >= 0 && segments[guideIndex + 1]) {
@@ -212,7 +234,7 @@ export default function WorkSubmitModal({
     } catch {
       return null;
     }
-  };
+  }, []);
 
   const handleAddReference = () => {
     const id = extractGuideIdFromUrl(referenceInput);
