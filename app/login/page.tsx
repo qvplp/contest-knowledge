@@ -22,19 +22,22 @@ export default function LoginPage() {
       // TODO: 実際のログインAPI呼び出し
       console.log('Login:', { email, password });
 
-      // モック: 2秒後にログイン成功
-      setTimeout(() => {
-        const mockUser = {
-          id: '1',
-          name: 'AIマスター',
-          email: email || 'ai_master@example.com',
-          avatar: '/images/avatars/user1.jpg',
-        };
+      // モック: ログイン成功
+      const mockUser = {
+        id: '1',
+        name: 'AIマスター',
+        email: email || 'ai_master@example.com',
+        avatar: '/images/avatars/user1.jpg',
+      };
 
-        login(mockUser);
+      // ログイン処理を実行
+      login(mockUser);
+      
+      // 状態更新を待ってから遷移（次のレンダリングサイクルで実行）
+      setTimeout(() => {
         router.push('/');
         setIsLoading(false);
-      }, 2000);
+      }, 100);
     } catch (err) {
       setError('ログインに失敗しました');
       setIsLoading(false);
@@ -44,37 +47,41 @@ export default function LoginPage() {
   const handleGoogleLogin = async () => {
     setIsLoading(true);
 
-    // モック: 1秒後にログイン
-    setTimeout(() => {
-      const mockUser = {
-        id: '1',
-        name: 'AIマスター',
-        email: 'ai_master@example.com',
-        avatar: '/images/avatars/user1.jpg',
-      };
+    // モック: ログイン
+    const mockUser = {
+      id: '1',
+      name: 'AIマスター',
+      email: 'ai_master@example.com',
+      avatar: '/images/avatars/user1.jpg',
+    };
 
-      login(mockUser);
+    login(mockUser);
+    
+    // 状態更新を待ってから遷移
+    setTimeout(() => {
       router.push('/');
       setIsLoading(false);
-    }, 1000);
+    }, 100);
   };
 
   const handleTwitterLogin = async () => {
     setIsLoading(true);
 
-    // モック: 1秒後にログイン
-    setTimeout(() => {
-      const mockUser = {
-        id: '1',
-        name: 'AIマスター',
-        email: 'ai_master@example.com',
-        avatar: '/images/avatars/user1.jpg',
-      };
+    // モック: ログイン
+    const mockUser = {
+      id: '1',
+      name: 'AIマスター',
+      email: 'ai_master@example.com',
+      avatar: '/images/avatars/user1.jpg',
+    };
 
-      login(mockUser);
+    login(mockUser);
+    
+    // 状態更新を待ってから遷移
+    setTimeout(() => {
       router.push('/');
       setIsLoading(false);
-    }, 1000);
+    }, 100);
   };
 
   return (

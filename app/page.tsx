@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import Link from 'next/link';
@@ -10,21 +10,58 @@ import GuidesSection from '@/components/home/GuidesSection';
 import WorksSection from '@/components/home/WorksSection';
 
 export default function HomePage() {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, user } = useAuth();
   const router = useRouter();
+  const [isChecking, setIsChecking] = useState(true);
 
   useEffect(() => {
-    if (!isLoggedIn) {
-      router.push('/login');
-    }
-  }, [isLoggedIn, router]);
+    // クライアントサイドでのみ実行
+    if (typeof window === 'undefined') return;
+    
+    // 認証状態を確認（localStorageから直接確認）
+    const checkAuth = () => {
+      const stored = localStorage.getItem('animehub_user');
+      if (stored) {
+        try {
+          const userData = JSON.parse(stored);
+          if (userData && userData.id) {
+            setIsChecking(false);
+            return;
+          }
+        } catch {
+          // パースエラーは無視
+        }
+      }
+      
+      // ログインしていない場合
+      if (!isLoggedIn && !user) {
+        router.push('/login');
+        return;
+      }
+      
+      setIsChecking(false);
+    };
 
-  if (!isLoggedIn) {
+    // 少し遅延させて認証状態の更新を待つ
+    const timer = setTimeout(checkAuth, 100);
+    return () => clearTimeout(timer);
+  }, [isLoggedIn, user, router]);
+
+  // 認証チェック中はローディング表示
+  if (isChecking) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-950">
-        <p className="text-gray-400">ログインページへ移動しています...</p>
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto mb-4"></div>
+          <p className="text-gray-400">読み込み中...</p>
+        </div>
       </div>
     );
+  }
+
+  // ログインしていない場合はログインページへ
+  if (!isLoggedIn && !user) {
+    return null; // リダイレクト中なので何も表示しない
   }
 
   // ヒーロースライドデータ

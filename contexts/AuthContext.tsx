@@ -20,17 +20,22 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState<User | null>(null);
+  const [isInitialized, setIsInitialized] = useState(false);
   const authRepo = useMemo(() => new LocalStorageAuthRepository(), []);
   const getCurrentUser = useMemo(() => new GetCurrentUser(authRepo), [authRepo]);
   const loginUC = useMemo(() => new Login(authRepo), [authRepo]);
   const logoutUC = useMemo(() => new Logout(authRepo), [authRepo]);
 
   useEffect(() => {
+    // クライアントサイドでのみ実行
+    if (typeof window === 'undefined') return;
+    
     const current = getCurrentUser.execute();
     if (current) {
       setUser(current);
       setIsLoggedIn(true);
     }
+    setIsInitialized(true);
   }, [getCurrentUser]);
 
   const login = (userData: User) => {
