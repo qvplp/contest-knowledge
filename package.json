@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "NEXT_TELEMETRY_DISABLED=1 next build",
-    "build:cloudflare": "NEXT_TELEMETRY_DISABLED=1 npx @cloudflare/next-on-pages && echo '_worker.js' > .vercel/output/static/.assetsignore",
+    "build:cloudflare": "NEXT_TELEMETRY_DISABLED=1 npx @cloudflare/next-on-pages && mkdir -p .vercel/output/static && echo '_worker.js' > .vercel/output/static/.assetsignore",
     "deploy:cloudflare": "npm run build:cloudflare && npx wrangler deploy",
     "deploy:cloudflare:pages": "npm run build:cloudflare && npx wrangler pages deploy .vercel/output/static",
     "start": "next start",

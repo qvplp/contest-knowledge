@@ -12,11 +12,7 @@ compatibility_flags = ["nodejs_compat"]
 # _worker.jsが存在する場合（build:cloudflare実行後）
 # .vercel/output/static/_worker.js/index.js が生成されるため、以下の設定を使用
 main = ".vercel/output/static/_worker.js/index.js"
-assets = { 
-  directory = ".vercel/output/static",
-  # _worker.jsディレクトリをアセットから除外
-  ignore = ["_worker.js/**"]
-}
+assets = { directory = ".vercel/output/static" }
 
 # 注意: @cloudflare/next-on-pagesは主にCloudflare Pages向けです
 # Workersとしてデプロイする場合は、.vercel/output/_worker.jsが存在するか確認してください
